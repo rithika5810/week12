@@ -1,56 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Form Example</title>
-
-    <script>
-        function validateForm() {
-            var username = document.forms["f1"]["username"].value.trim();
-            var password = document.forms["f1"]["pwd"].value;
-
-            // Validate username
-            if (username === "") {
-                alert("Username cannot be empty.");
-                return false;
-            }
-
-            // Validate password
-            if (password === "") {
-                alert("Password cannot be empty.");
-                return false;
-            }
-
-            if (password.length < 6) {
-                alert("Password must be at least 6 characters long.");
-                return false;
-            }
-
-            return true;
-        }
-    </script>
+    <title>Registration Form</title>
 </head>
 
 <body>
     <center>
-        <h2>Application Form</h2>
-
-        <form name="f1"
-              action="/submit"
-              method="POST"
-              onsubmit="return validateForm()">
-
-            Enter Your Name:
-            <input type="text" name="username">
-
+        <h2>Student Registration Form</h2>
+        <form action="/submit" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
             <br><br>
-
-            Enter Your Password:
-            <input type="password" name="pwd">
-
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
             <br><br>
-
-            <input type="submit" name="sb" value="Submit">
-
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" required>
+            <br><br>
+            <label for="course">Course:</label>
+            <select id="course" name="course" required>
+                <option value="">Select a course</option>
+                <option value="B.Tech">B.Tech</option>
+            </select>
+            <br><br>
+            <button type="submit">Register</button>
         </form>
     </center>
 </body>

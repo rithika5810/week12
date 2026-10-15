@@ -10,14 +10,7 @@ pipeline {
                     // Install Python dependencies
                     bat 'pip install -r requirements.txt'
 
-                    //  Start Flask app in background
-                    bat 'start /B python app.py'
-
-                    // Wait a few seconds for the server to start
-                    bat 'ping 127.0.0.1 -n 5 > nul'
-
-                    // Run tests using pytest
-                    
+                    // The pytest fixture starts and stops the Flask app.
                     bat 'python -m pytest -v'
             }
         }
@@ -30,15 +23,15 @@ pipeline {
         }
         stage('Docker Login') {
             steps {
-                  bat 'docker login -u sumayyasadaf -p Sumayya@123'
+                  bat 'docker login -u rithika5810 -p Rithika@12'
                 }
             }
         stage('push Docker Image to Docker Hub') {
             steps {
                 echo "push Docker Image to Docker Hub"
-                bat "docker tag seleniumdemoapp:v1 sumayyasadaf/sample2026:seleniumtestimage"               
+                bat "docker tag seleniumdemoapp:v1 rithika5810/kube:seleniumtestimage"               
                     
-                bat "docker push sumayyasadaf/sample2026:seleniumtestimage"
+                bat "docker push rithika5810/kube:seleniumtestimage"
                 
             }
         }

@@ -10,10 +10,10 @@ def index():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    username = request.form['username']
+    name = request.form['name']
 
-    return render_template('success.html', name=username)
+    return render_template('success.html', name=name)
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=False)
