@@ -21,19 +21,21 @@ pipeline {
             }
         }
 
-        stage('Docker Login') {
-            steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-credentials',
-                    usernameVariable: 'DOCKER_USERNAME',
-                    passwordVariable: 'DOCKER_PASSWORD'
-                )]) {
-                    bat '''
-                        powershell -NoProfile -Command "$env:DOCKER_PASSWORD | docker login -u $env:DOCKER_USERNAME --password-stdin"
-                    '''
-                }
-            }
+       
+stage('Docker Login') {
+    steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'dockerhub-credentials',
+            usernameVariable: 'DOCKER_USERNAME',
+            passwordVariable: 'DOCKER_PASSWORD'
+        )]) {
+            bat '''
+                @echo off
+                powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command "$ErrorActionPreference = 'Stop'; $env:DOCKER_PASSWORD | docker login --username $env:DOCKER_USERNAME --password-stdin; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }"
+            '''
         }
+    }
+}
 
         stage('Push Docker Image to Docker Hub') {
             steps {
