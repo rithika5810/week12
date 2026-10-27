@@ -24,11 +24,19 @@ pipeline {
                 bat "docker build -t seleniumdemoapp:v1 ."
             }
         }
-        stage('Docker Login') {
-            steps {
-                  bat 'docker login -u rithika5810 -p dckr_pat_JBeUMtrKfQe-WNQWSpJICb1xbIc'
-                }
-            }
+       stage('Docker Login') {
+    steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'dockerhub-credentials',
+            usernameVariable: 'DOCKER_USERNAME',
+            passwordVariable: 'DOCKER_PASSWORD'
+        )]) {
+            bat '''
+                powershell -NoProfile -Command "$env:DOCKER_PASSWORD | docker login docker.io -u $env:DOCKER_USERNAME --password-stdin"
+            '''
+        }
+    }
+}
         stage('push Docker Image to Docker Hub') {
             steps {
                 echo "push Docker Image to Docker Hub"
