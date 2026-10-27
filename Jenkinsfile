@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Docker Login') {
             steps {
-                  bat 'docker login -u rithika5810 -p Rithika@12'
+                  bat 'docker login -u rithika5810 -p dckr_pat_JBeUMtrKfQe-WNQWSpJICb1xbIc'
                 }
             }
         stage('push Docker Image to Docker Hub') {
